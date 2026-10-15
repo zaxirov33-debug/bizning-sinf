@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bizning sinf — Ta'lim platformasi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #4263eb;
+  --dark: #17213b;
+  --muted: #7d879e;
+  --bg: #f4f7fc;
+  --white: #fff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark);
+  background: var(--bg);
+}
+
+button { font: inherit; cursor: pointer; }
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 245px;
+  background: #fff;
+  border-right: 1px solid #e9edf5;
+  padding: 30px 18px;
+  flex-shrink: 0;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 0 0 38px 8px;
+}
+
+.brand span { color: var(--blue); }
+
+.menu-title {
+  color: #9ba4b8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin: 22px 10px 12px;
+}
+
+.nav-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 0;
+  background: transparent;
+  color: #68748d;
+  text-align: left;
+  padding: 13px 12px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  transition: .2s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: #edf1ff;
+  color: var(--blue);
+}
+
+.nav-btn.active { font-weight: 700; }
+
+.nav-icon { font-size: 18px; width: 24px; }
+
+/* MAIN */
+
+.main { flex: 1; min-width: 0; }
+
+.topbar {
+  height: 80px;
+  background: #fff;
+  border-bottom: 1px solid #e9edf5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 38px;
+  gap: 15px;
+}
+
+.search {
+  max-width: 350px;
+  width: 100%;
+  border: 1px solid #e7eaf2;
+  background: #f8f9fc;
+  border-radius: 12px;
+  padding: 12px 15px;
+  outline: none;
+  font-size: 13px;
+}
+
+.search:focus { border-color: var(--blue); }
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #e9edff;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+
+/* CONTENT */
+
+.content {
+  max-width: 1450px;
+  margin: auto;
+  padding: 35px 38px;
+}
+
+.welcome {
+  position: relative;
+  overflow: hidden;
+  padding: 38px;
+  min-height: 230px;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #3455d1, #647cf5 65%, #8d9dff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 16px 35px #4263eb25;
+}
+
+.welcome::after {
+  content: '✦';
+  position: absolute;
+  font-size: 260px;
+  color: #ffffff13;
+  right: 35px;
+  top: -65px;
+}
+
+.welcome-text { position: relative; z-index: 1; }
+
+.welcome small {
+  display: inline-block;
+  background: #ffffff20;
+  border: 1px solid #ffffff30;
+  border-radius: 30px;
+  padding: 8px 12px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.welcome h1 {
+  font-size: clamp(27px, 3.5vw, 40px);
+  letter-spacing: -1.5px;
+  margin-bottom: 13px;
+}
+
+.welcome p {
+  color: #e8edff;
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 470px;
+}
+
+.welcome-art {
+  position: relative;
+  z-index: 1;
+  font-size: 95px;
+  padding: 15px;
+}
+
+/* STATISTICS */
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 34px 0 18px;
+}
+
+.section-heading h2 { font-size: 19px; }
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 18px;
+  padding: 22px;
+  transition: .2s;
+}
+
+.stat:hover { transform: translateY(-4px); }
+
+.stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+}
+
+.purple { background: #eeeaff; }
+.green { background: #e1f8ed; }
+.orange { background: #fff0dc; }
+
+.stat-number {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 20px 0 6px;
+}
+
+.stat-label { color: var(--muted); font-size: 12px; }
+
+/* FEATURE CARDS */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  text-align: left;
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 18px;
+  padding: 22px;
+  transition: .2s;
+  color: var(--dark);
+}
+
+.feature:hover {
+  border-color: #aebdff;
+  box-shadow: 0 10px 24px #344f9b0d;
+  transform: translateY(-3px);
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #edf1ff;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.feature h3 { font-size: 14px; margin: 4px 0 8px; }
+
+.feature p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.arrow {
+  margin-left: auto;
+  color: #9ba8c0;
+  font-size: 20px;
+}
+
+/* PAGE CONTENT */
+
+.panel {
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 18px;
+  padding: 25px;
+  margin-top: 22px;
+}
+
+.panel h2 { font-size: 20px; margin-bottom: 17px; }
+
+.day-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.day-btn {
+  border: 1px solid #e6eaf4;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #68748d;
+  font-size: 12px;
+}
+
+.day-btn.active {
+  color: white;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 12px;
+  border-bottom: 1px solid #eef0f6;
+}
+
+.lesson:last-child { border-bottom: 0; }
+
+.lesson-time {
+  min-width: 90px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.lesson-name { font-size: 13px; font-weight: 600; }
+
+.lesson-no {
+  margin-left: auto;
+  font-size: 11px;
+  color: #9ba4b8;
+}
+
+.subject-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.subject {
+  padding: 17px;
+  background: #f7f8fd;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.subject span { display: block; font-size: 24px; margin-bottom: 10px; }
+
+.notice {
+  padding: 16px;
+  background: #f6f7fc;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #68748d;
+}
+
+footer {
+  text-align: center;
+  padding: 28px 10px;
+  color: #98a1b5;
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+  .sidebar { width: 210px; }
+  .topbar { padding: 0 25px; }
+  .content { padding: 28px 25px; }
+  .welcome-art { font-size: 70px; }
+}
+
+@media (max-width: 760px) {
+  .layout { display: block; }
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid #e9edf5;
+  }
+  .brand { margin: 0 0 14px; }
+  .menu-title { display: none; }
+  .sidebar nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .nav-btn {
+    width: auto;
+    flex-shrink: 0;
+    padding: 10px;
+    font-size: 11px;
+    margin: 0;
+  }
+  .nav-icon { width: auto; }
+  .topbar { height: 65px; padding: 0 16px; }
+  .content { padding: 20px 15px; }
+  .welcome { padding: 28px 22px; min-height: 190px; }
+  .welcome-art { display: none; }
+  .stats { gap: 10px; }
+  .stat { padding: 14px; }
+  .stat-number { font-size: 23px; }
+  .stat-label { line-height: 1.6; }
+  .features { gap: 10px; }
+  .feature { padding: 15px; gap: 10px; }
+  .feature-icon { width: 40px; height: 40px; font-size: 20px; }
+  .feature h3 { font-size: 12px; }
+  .feature p { font-size: 11px; }
+  .subject-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 420px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat { display: flex; align-items: center; gap: 15px; }
+  .stat-number { margin: 0 0 5px; }
+  .stat-top { display: block; }
+  .stat-top .stat-icon { display: none; }
+  .features { grid-template-columns: 1fr; }
+  .welcome h1 { font-size: 29px; }
+  .section-heading h2 { font-size: 17px; }
+  .profile span { display: none; }
+  .subject-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* USTOZIMIZ DIZAYNI */
+
+.teacher-hero {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 30px;
+  border-radius: 22px;
+  color: white;
+  background: linear-gradient(135deg, #203d79, #4263eb, #8496ff);
+  box-shadow: 0 15px 35px #4263eb25;
+}
+
+.teacher-photo {
+  width: 140px;
+  height: 160px;
+  flex-shrink: 0;
+  border: 2px solid #ffffff80;
+  border-radius: 18px;
+  background: #ffffff20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+}
+
+.teacher-photo small {
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.teacher-info h1 {
+  font-size: 30px;
+  margin: 15px 0 10px;
+}
+
+.teacher-info p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #e8edff;
+}
+
+.teacher-label {
+  font-size: 11px;
+  background: #ffffff25;
+  padding: 9px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.teacher-card {
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.teacher-card h2 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.teacher-card p {
+  font-size: 13px;
+  color: #68748d;
+  line-height: 1.9;
+}
+
+.teacher-subject {
+  display: inline-block;
+  background: #edf1ff;
+  color: #4263eb;
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.teacher-quote {
+  margin-top: 22px;
+  padding: 25px;
+  background: white;
+  border-left: 4px solid #4263eb;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+@media (max-width: 600px) {
+  .teacher-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* DARSLIKLAR */
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.book-card {
+  background: white;
+  border: 1px solid #e7ebf4;
+  border-radius: 18px;
+  padding: 20px;
+  transition: .2s;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px #253c7a12;
+  border-color: #cbd5ff;
+}
+
+.book-cover {
+  height: 145px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #e5eaff, #f4f5ff);
+  display: grid;
+  place-items: center;
+  font-size: 54px;
+  margin-bottom: 16px;
+}
+
+.book-card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.book-card p {
+  color: #7d879e;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.book-link {
+  display: inline-block;
+  padding: 10px 14px;
+  background: #4263eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.book-link:hover {
+  background: #304fc9;
+}
+
+@media (max-width: 760px) {
+  .books-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 450px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">🎓 Bizning <span>sinf.</span></div>
+    <p class="menu-title">ASOSIY MENYU</p>
+
+    <nav>
+      <button class="nav-btn active" data-page="home"><span class="nav-icon">🏠</span> Bosh sahifa</button>
+      <button class="nav-btn" data-page="schedule"><span class="nav-icon">📅</span> Dars jadvali</button>
+      <button class="nav-btn" data-page="subjects"><span class="nav-icon">📚</span> Fanlar</button>
+      <button class="nav-btn" data-page="books">
+  <span class="nav-icon">📖</span> Darsliklar
+</button>
+      <button class="nav-btn" data-page="tests"><span class="nav-icon">📝</span> Testlar</button>
+      <button class="nav-btn" data-page="class"><span class="nav-icon">👥</span> Sinf sahifasi</button>
+    <button class="nav-btn" data-page="teacher">
+  <span class="nav-icon">👨‍🏫</span> Ustozimiz
+</button>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <input class="search" id="search" type="search" placeholder="🔎  Platformadan qidirish...">
+      <div class="profile">
+        <div class="avatar">🎒</div>
+        <span>9-sinf o‘quvchisi</span>
+      </div>
+    </header>
+
+    <main class="content" id="app"></main>
+    <footer>© 2026 Bizning sinf · Bepul ta’lim platformasi</footer>
+  </div>
+</div>
+
+<script>
+const lessons = {
+  "Dushanba": [
+    ["08:00", "Matematika"], ["08:50", "Ona tili"],
+    ["09:40", "Ingliz tili"], ["10:30", "Fizika"],
+    ["11:20", "Tarix"]
+  ],
+  "Seshanba": [
+    ["08:00", "Biologiya"], ["08:50", "Matematika"],
+    ["09:40", "Adabiyot"], ["10:30", "Kimyo"],
+    ["11:20", "Informatika"]
+  ],
+  "Chorshanba": [
+    ["08:00", "Ingliz tili"], ["08:50", "Geografiya"],
+    ["09:40", "Matematika"], ["10:30", "Ona tili"],
+    ["11:20", "Jismoniy tarbiya"]
+  ],
+  "Payshanba": [
+    ["08:00", "Fizika"], ["08:50", "Tarix"],
+    ["09:40", "Matematika"], ["10:30", "Ingliz tili"],
+    ["11:20", "Biologiya"]
+  ],
+  "Juma": [
+    ["08:00", "Ona tili"], ["08:50", "Kimyo"],
+    ["09:40", "Matematika"], ["10:30", "Adabiyot"],
+    ["11:20", "Informatika"]
+  ],
+  "Shanba": [
+    ["08:00", "Tarix"], ["08:50", "Geografiya"],
+    ["09:40", "Ingliz tili"], ["10:30", "Jismoniy tarbiya"]
+  ]
+};
+
+const subjects = [
+  ["➗", "Matematika"], ["📖", "Ona tili"],
+  ["🇬🇧", "Ingliz tili"], ["⚛️", "Fizika"],
+  ["🧪", "Kimyo"], ["🧬", "Biologiya"],
+  ["🌍", "Geografiya"], ["🏛️", "Tarix"],
+  ["💻", "Informatika"], ["📕", "Adabiyot"]
+];
+
+let currentPage = "home";
+let currentDay = "Dushanba";
+
+const app = document.getElementById("app");
+
+function renderHome() {
+  app.innerHTML = `
+    <section class="welcome">
+      <div class="welcome-text">
+        <small>✦ BILIM SARI BIRGALIKDA</small>
+        <h1>Biznig<br> sinf! 👋</h1>
+        <p>9-sinf uchun darslar, jadval, testlar va barcha kerakli ma’lumotlar bir joyda.</p>
+      </div>
+      <div class="welcome-art">🎓</div>
+    </section>
+
+    <div class="section-heading">
+      <div><h2>O‘quv markazingiz</h2><p>Ta’lim uchun kerakli barcha bo‘limlar</p></div>
+    </div>
+
+    <section class="stats">
+      <div class="stat"><div class="stat-top"><div class="stat-icon purple">📚</div></div><div class="stat-number">10+</div><div class="stat-label">Maktab fanlari</div></div>
+      <div class="stat"><div class="stat-top"><div class="stat-icon green">📅</div></div><div class="stat-number">6 kun</div><div class="stat-label">Haftalik dars jadvali</div></div>
+      <div class="stat"><div class="stat-top"><div class="stat-icon orange">🎯</div></div><div class="stat-number">Bepul</div><div class="stat-label">Barcha o‘quvchilar uchun</div></div>
+    </section>
+
+    <div class="section-heading">
+      <div><h2>Tezkor bo‘limlar</h2><p>Kerakli bo‘limni tanlang</p></div>
+    </div>
+
+    <section class="features">
+      <button class="feature" data-page="schedule"><div class="feature-icon">📅</div><div><h3>Dars jadvali</h3><p>Hafta kunlari bo‘yicha darslarni ko‘ring.</p></div><span class="arrow">›</span></button>
+      <button class="feature" data-page="subjects"><div class="feature-icon">📚</div><div><h3>Barcha fanlar</h3><p>Fanlar ro‘yxatini ko‘ring.</p></div><span class="arrow">›</span></button>
+      <button class="feature" data-page="tests"><div class="feature-icon">📝</div><div><h3>Bilimni sinash</h3><p>Namunaviy savollarga javob bering.</p></div><span class="arrow">›</span></button>
+      <button class="feature" data-page="class"><div class="feature-icon">👥</div><div><h3>Sinf sahifasi</h3><p>E’lonlar va uy vazifalari bo‘limi.</p></div><span class="arrow">›</span></button>
+    </section>
+  `;
+}
+
+function renderSchedule() {
+  app.innerHTML = `
+    <div class="section-heading"><div><h2>📅 Dars jadvali</h2><p>Haftalik darslar ro‘yxati</p></div></div>
+    <section class="panel">
+      <div class="day-tabs">
+        ${Object.keys(lessons).map(day =>
+          `<button class="day-btn ${day === currentDay ? "active" : ""}" data-day="${day}">${day}</button>`
+        ).join("")}
+      </div>
+      <div id="lessonList"></div>
+      <p class="notice" style="margin-top:15px">Eslatma: bu namunaviy jadval. Haqiqiy maktabingiz jadvaliga moslab o‘zgartirish kerak.</p>
+    </section>
+  `;
+  renderLessons();
+}
+
+function renderLessons() {
+  const list = document.getElementById("lessonList");
+  if (!list) return;
+  list.innerHTML = lessons[currentDay].map((lesson, i) => `
+    <div class="lesson">
+      <span class="lesson-time">${lesson[0]}</span>
+      <span class="lesson-name">${lesson[1]}</span>
+      <span class="lesson-no">${i + 1}-dars</span>
+    </div>
+  `).join("");
+}
+
+function renderSubjects() {
+  app.innerHTML = `
+    <div class="section-heading"><div><h2>📚 Fanlar</h2><p>9-sinf fanlari ro‘yxati</p></div></div>
+    <section class="panel">
+      <div class="subject-list">
+        ${subjects.map(s => `<div class="subject"><span>${s[0]}</span>${s[1]}</div>`).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderTests() {
+  app.innerHTML = `
+    <div class="section-heading"><div><h2>📝 Bilimingizni sinang</h2><p>Namunaviy matematika testi</p></div></div>
+    <section class="panel" id="quiz">
+      <p style="font-size:13px;margin-bottom:20px">1-savol. Agar 3x + 6 = 21 bo‘lsa, x nechaga teng?</p>
+      <div class="day-tabs" style="flex-direction:column">
+        <button class="day-btn" data-answer="wrong">A) 3</button>
+        <button class="day-btn" data-answer="correct">B) 5</button>
+        <button class="day-btn" data-answer="wrong">C) 7</button>
+        <button class="day-btn" data-answer="wrong">D) 9</button>
+      </div>
+      <p id="quizResult" class="notice">Javobingizni tanlang.</p>
+    </section>
+  `;
+}
+
+function renderClass() {
+  app.innerHTML = `
+    <div class="section-heading"><div><h2>👥 Sinf sahifasi</h2><p>Sinf yangiliklari va eslatmalar</p></div></div>
+    <section class="panel">
+      
+<div class="notice">
+  <h3>📢 Sinf yangiliklari</h3>
+  <p>9-sinfimizdagi yangiliklarni shu yerda yozamiz.</p>
+  <input id="classNewsInput" type="text"
+    placeholder="Yangilik matnini yozing..."
+    style="width:100%;padding:12px;margin-top:12px;border:1px solid #ddd;border-radius:10px">
+  <button id="classNewsButton" type="button"
+    style="padding:10px 16px;margin-top:10px;border:0;border-radius:8px;background:#6758f5;color:white">
+    Yangilikni qo‘shish
+  </button>
+  <div id="classNewsList" style="margin-top:12px"></div>
+</div>
+      <div class="notice" style="margin-top:14px">🔒 Hozircha bu namuna. E’lonlarni haqiqiy foydalanuvchilar joylashi uchun keyinchalik ma’lumotlar bazasi va kirish tizimi qo‘shiladi.</div>
+    </section>
+  `;   
+}
+
+function setupClassNews() {
+  const input = document.getElementById("classNewsInput");
+  const button = document.getElementById("classNewsButton");
+  const list = document.getElementById("classNewsList");
+
+  if (!input || !button || !list) return;
+
+  function showNews() {
+    list.replaceChildren();
+
+    let news = [];
+
+    try {
+      news = JSON.parse(localStorage.getItem("classNews") || "[]");
+      if (!Array.isArray(news)) news = [];
+    } catch (error) {
+      news = [];
+    }
+
+    news.forEach(text => {
+      const item = document.createElement("div");
+      item.className = "notice";
+      item.style.marginTop = "10px";
+      item.textContent = "📢 " + text;
+      list.appendChild(item);
+    });
+  }
+
+  button.onclick = () => {
+    const text = input.value.trim();
+
+    if (!text) {
+      alert("Avval yangilik yozing!");
+      return;
+    }
+
+    let news = [];
+
+    try {
+      news = JSON.parse(localStorage.getItem("classNews") || "[]");
+      if (!Array.isArray(news)) news = [];
+    } catch (error) {
+      news = [];
+    }
+
+    news.unshift(text);
+
+    try {
+      localStorage.setItem("classNews", JSON.stringify(news));
+      input.value = "";
+      showNews();
+    } catch (error) {
+      alert("Yangilikni saqlab bo‘lmadi.");
+    }
+  };
+
+  showNews();
+}
+function renderTeacher() {
+  app.innerHTML = `
+    <section class="teacher-hero">
+      <div class="teacher-photo">
+        <span>👨‍🏫</span>
+        <small>USTOZ RASMI</small>
+      </div>
+      <div class="teacher-info">
+        <div class="teacher-label">🎓 BIZNING SINF RAHBARI</div>
+        <h1>Sardor Qayimov</h1>
+        <p>Ona tili va adabiyot fani o‘qituvchisi</p>
+        <p>Bizning aziz sinf rahbarimiz 💙</p>
+      </div>
+    </section>
+
+    <section class="teacher-grid">
+      <div class="teacher-card">
+        <h2>📚 O‘qitadigan fanlari</h2>
+        <span class="teacher-subject">Ona tili</span>
+        <span class="teacher-subject">Adabiyot</span>
+      </div>
+
+      <div class="teacher-card">
+        <h2>💙 Ustozimiz haqida</h2>
+        <p>
+          Sardor Qayimov — bizning sinf rahbarimiz.
+          Ustozimizni hurmat qilamiz va ularning
+          bilimlaridan o‘rganishga intilamiz.
+        </p>
+      </div>
+    </section>
+
+    <div class="teacher-quote">
+      <strong>🌟 Aziz ustozimiz!</strong>
+      <p>
+        Bizga berayotgan bilimlaringiz va
+        mehnatingiz uchun katta rahmat!
+      </p>
+    </div>
+  `;
+}
+
+function renderBooks() {
+  const books = [
+    {
+      icon: "➗",
+      title: "Matematika",
+      description: "9-sinf matematika darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "📖",
+      title: "Ona tili",
+      description: "9-sinf ona tili darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "📚",
+      title: "Adabiyot",
+      description: "9-sinf adabiyot darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "🇬🇧",
+      title: "Ingliz tili",
+      description: "9-sinf ingliz tili darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "⚛️",
+      title: "Fizika",
+      description: "9-sinf fizika darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "🧪",
+      title: "Kimyo",
+      description: "9-sinf kimyo darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "🧬",
+      title: "Biologiya",
+      description: "9-sinf biologiya darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "🌍",
+      title: "Geografiya",
+      description: "9-sinf geografiya darsligi",
+      url: "https://eduportal.uz/"
+    },
+    {
+      icon: "🏛️",
+      title: "O‘zbekiston tarixi",
+      description: "9-sinf tarix darsligi",
+      url: "https://eduportal.uz/"
+    }
+  ];
+
+  app.innerHTML = `
+    <div class="section-heading">
+      <div>
+        <h2>📚 9-sinf darsliklari</h2>
+        <p>Faningizni tanlang va darsliklarni qidiring</p>
+      </div>
+    </div>
+
+    <input
+      id="bookSearch"
+      class="search"
+      style="max-width:100%;margin-bottom:22px"
+      placeholder="🔎 Kitob nomini yozing..."
+    >
+
+    <section class="books-grid" id="booksGrid"></section>
+    <p class="notice" style="margin-top:20px">
+      Eslatma: hozircha tugmalar rasmiy ta'lim portaliga olib boradi.
+      Har bir kitob uchun aniq PDF manzilini keyin qo'shamiz.
+    </p>
+  `;
+
+  const grid = document.getElementById("booksGrid");
+  const search = document.getElementById("bookSearch");
+
+  function showBooks(query = "") {
+    const filtered = books.filter(book =>
+      (book.title + " " + book.description)
+        .toLowerCase()
+        .includes(query.toLowerCase())
+    );
+
+    grid.replaceChildren();
+
+    if (filtered.length === 0) {
+      grid.textContent = "Bu nomdagi kitob topilmadi.";
+      return;
+    }
+
+    filtered.forEach(book => {
+      const card = document.createElement("article");
+      card.className = "book-card";
+
+      const cover = document.createElement("div");
+      cover.className = "book-cover";
+      cover.textContent = book.icon;
+
+      const title = document.createElement("h3");
+      title.textContent = book.title;
+
+      const description = document.createElement("p");
+      description.textContent = book.description;
+
+      const link = document.createElement("a");
+      link.className = "book-link";
+      link.href = book.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Portalni ochish ↗";
+
+      card.append(cover, title, description, link);
+      grid.appendChild(card);
+    });
+  }
+
+  search.addEventListener("input", () => showBooks(search.value));
+  showBooks();
+}
+function render() {
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === currentPage);
+  });
+
+  if (currentPage === "home") renderHome();
+  if (currentPage === "schedule") renderSchedule();
+  if (currentPage === "subjects") renderSubjects();
+  if (currentPage === "books") renderBooks();
+  if (currentPage === "tests") renderTests();
+  if (currentPage === "class") renderClass();
+  if (currentPage === "teacher") renderTeacher();
+}
+
+document.addEventListener("click", event => {
+  const nav = event.target.closest("[data-page]");
+  if (nav) {
+    currentPage = nav.dataset.page;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  const day = event.target.closest("[data-day]");
+  if (day) {
+    currentDay = day.dataset.day;
+    renderSchedule();
+    return;
+  }
+
+  const answer = event.target.closest("[data-answer]");
+  if (answer) {
+    const result = document.getElementById("quizResult");
+    result.textContent = answer.dataset.answer === "correct"
+      ? "✅ To‘g‘ri! x = 5."
+      : "❌ Noto‘g‘ri. Qayta urinib ko‘ring.";
+  }
+});
+
+document.getElementById("search").addEventListener("keydown", event => {
+  if (event.key !== "Enter") return;
+  const q = event.target.value.toLowerCase().trim();
+  if (!q) return;
+
+  if ("dars jadvali".includes(q) || q.includes("jadval")) currentPage = "schedule";
+  else if ("fanlar matematika fizika kimyo".includes(q) || q.includes("fan")) currentPage = "subjects";
+  else if (q.includes("test")) currentPage = "tests";
+  else if (q.includes("sinf")) currentPage = "class";
+  else {
+    alert("Bu so‘z bo‘yicha hozircha bo‘lim topilmadi.");
+    return;
+  }
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
